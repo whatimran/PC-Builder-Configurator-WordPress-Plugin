@@ -1,0 +1,23 @@
+#pc-builder-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+#pc-builder-sidebar {
+    width: 20%;
+    background: #2c2c2c;
+    padding: 20px;
+}
+
+#pc-builder-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#pc-builder-sidebar ul li {
+    margin: 10px 0;
+}
+
+#pc-builder-sidebar ul li a {
+    color: #fff;
+   
