@@ -1,20 +1,25 @@
 <?php
 /*
 Plugin Name: PC Builder Configurator
-Description: A custom PC builder/configurator.
-Version: 1.4
+Description: A custom PC builder configurator for WooCommerce.
+Version: 1.6
 Author: whatimran
 Github: https://github.com/whatimran
 */
 
+// Enqueue necessary scripts and styles
 function pcbuilder_enqueue_scripts() {
+    wp_enqueue_style('select2-style', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css');
     wp_enqueue_style('pcbuilder-style', plugin_dir_url(__FILE__) . 'style.css');
+    
+    wp_enqueue_script('select2-script', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js', array('jquery'), null, true);
     wp_enqueue_script('pcbuilder-script', plugin_dir_url(__FILE__) . 'script.js', array('jquery'), null, true);
+    
     wp_localize_script('pcbuilder-script', 'pcbuilder_ajax', array('ajax_url' => admin_url('admin-ajax.php')));
 }
 add_action('wp_enqueue_scripts', 'pcbuilder_enqueue_scripts');
 
-// menu
+// Create settings menu
 function pcbuilder_create_menu() {
     add_menu_page(
         'PC Builder Configurator Settings',
@@ -29,12 +34,12 @@ function pcbuilder_create_menu() {
 }
 add_action('admin_menu', 'pcbuilder_create_menu');
 
-
+// Register settings
 function pcbuilder_register_settings() {
     register_setting('pcbuilder-settings-group', 'pcbuilder_categories');
 }
 
-
+// Settings page content
 function pcbuilder_settings_page() {
     ?>
     <div class="wrap">
@@ -57,7 +62,7 @@ function pcbuilder_settings_page() {
     <?php
 }
 
-// shortcode
+// Shortcode to display the PC builder
 function pcbuilder_display() {
     ob_start();
     $categories = explode(',', get_option('pcbuilder_categories', 'Graphic Card, CPU, Motherboard, RAM, Cooling, SSD, Power supply, Cases, Fans, Wi-Fi'));
@@ -82,7 +87,7 @@ function pcbuilder_display() {
                         echo '<select id="' . strtolower(str_replace(' ', '-', $category)) . '" class="pc-builder-select" data-category="' . $category . '">';
                         echo '<option value="">Select ' . $category . '</option>';
                         
-                        // query to fetch products
+                        // Query to fetch products
                         $products = get_posts(array(
                             'post_type' => 'product',
                             'posts_per_page' => -1,
@@ -103,7 +108,7 @@ function pcbuilder_display() {
                         
                         foreach ($products as $product) {
                             $product_obj = wc_get_product($product->ID);
-                            echo '<option value="' . $product->ID . '" data-price="' . $product_obj->get_price() . '" data-image="' . wp_get_attachment_url($product_obj->get_image_id()) . '">' . $product_obj->get_name() . ' - AED ' . $product_obj->get_price() . '</option>';
+                            echo '<option value="' . $product->ID . '" data-price="' . $product_obj->get_price() . '" data-image="' . wp_get_attachment_url($product_obj->get_image_id()) . '" data-url="' . get_permalink($product->ID) . '">' . $product_obj->get_name() . ' - AED ' . $product_obj->get_price() . '</option>';
                         }
                         echo '</select>';
                         echo '<div class="pc-builder-image" id="' . strtolower(str_replace(' ', '-', $category)) . '-image"></div>';
@@ -124,7 +129,7 @@ function pcbuilder_display() {
 }
 add_shortcode('pc_builder', 'pcbuilder_display');
 
-// AJAX handler
+// AJAX handler to add products to cart
 function pcbuilder_add_to_cart() {
     if (isset($_POST['products']) && is_array($_POST['products'])) {
         WC()->cart->empty_cart();
