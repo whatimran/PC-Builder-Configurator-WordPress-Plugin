@@ -12,6 +12,8 @@
 - Displays the total price of selected components.
 - Adds all selected products to the WooCommerce cart.
 - Buy Now functionality that redirects directly to the checkout page.
+- Searchable product select boxes
+- Product page link
 
 ## Installation
 
