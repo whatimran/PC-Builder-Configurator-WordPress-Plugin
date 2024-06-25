@@ -10,14 +10,22 @@ jQuery(document).ready(function($) {
         $('#pc-builder-total-amount').text(total.toFixed(2));
     }
 
+    $('.pc-builder-select').select2();  // Initialize Select2
+
     $('.pc-builder-select').change(function() {
         var selectedOption = $(this).find('option:selected');
         var imageUrl = selectedOption.data('image');
+        var productUrl = selectedOption.data('url');
         var category = $(this).data('category');
+        var categorySlug = category.toLowerCase().replace(/ /g, '-');
+        
         if (imageUrl) {
-            $('#' + category.toLowerCase().replace(/ /g, '-') + '-image').html('<img src="' + imageUrl + '" alt="' + selectedOption.text() + '">');
+            $('#' + categorySlug + '-image').html(
+                '<a href="' + productUrl + '" target="_blank">Click here to open the product page</a>' +
+                '<img src="' + imageUrl + '" alt="' + selectedOption.text() + '">'
+            );
         } else {
-            $('#' + category.toLowerCase().replace(/ /g, '-') + '-image').html('');
+            $('#' + categorySlug + '-image').html('');
         }
         updateTotal();
     });
