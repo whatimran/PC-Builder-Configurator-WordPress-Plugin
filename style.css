@@ -5,8 +5,9 @@
 
 #pc-builder-sidebar {
     width: 20%;
-    background: #2c2c2c;
-    padding: 20px;
+    padding: 10px;
+    background-color: #2C2C2C;
+    border-right: 1px solid #ddd;
 }
 
 #pc-builder-sidebar ul {
@@ -14,10 +15,119 @@
     padding: 0;
 }
 
-#pc-builder-sidebar ul li {
-    margin: 10px 0;
+#pc-builder-sidebar li {
+    margin-bottom: 10px;
 }
 
-#pc-builder-sidebar ul li a {
+#pc-builder-sidebar a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+#pc-builder-sidebar a:hover {
+    text-decoration: underline;
+}
+
+#pc-builder-content {
+    width: 80%;
+    padding: 20px;
+}
+
+#pc-builder {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#pc-builder h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.pc-builder-category {
+    margin-bottom: 20px;
+}
+
+.pc-builder-category label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.pc-builder-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.pc-builder-image {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pc-builder-image a {
+    display: block;
+    margin-bottom: 5px;
+    color: #0073aa;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.pc-builder-image a:hover {
+    text-decoration: underline;
+}
+
+.pc-builder-image img {
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#pc-builder-total {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+#pc-builder-total h3 {
+    margin: 0;
+    font-weight: bold;
+}
+
+#pc-builder-add-to-cart,
+#pc-builder-buy-now {
+    width: 48%;
+    padding: 10px;
+    margin: 5px 1%;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
     color: #fff;
-   
+    cursor: pointer;
+    background-color: #0073aa;
+}
+
+#pc-builder-buy-now {
+    background-color: #009688;
+}
+
+#pc-builder-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#pc-builder-add-to-cart:hover,
+#pc-builder-buy-now:hover {
+    opacity: 0.9;
+}
